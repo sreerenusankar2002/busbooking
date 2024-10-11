@@ -25,15 +25,15 @@ class SecurityConfig(
             .authorizeHttpRequests { authz ->
                 authz
                     .requestMatchers("/booking-system/authenticate", "/booking-system/register", "/h2-console/**", "/booking-system/bus", "/booking-system/bus/**").permitAll()  // Allow unauthenticated access to these endpoints
-                    .anyRequest().authenticated()  // All other endpoints require authentication
+                    .anyRequest().authenticated()
             }
             .sessionManagement { session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // Stateless session management
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)  // Add JWT filter
             .headers { headers ->
                 headers
-                    .frameOptions { frameOptions -> frameOptions.sameOrigin() }  // For H2 console
+                    .frameOptions { frameOptions -> frameOptions.sameOrigin() }
             }
             .build()
     }
