@@ -19,7 +19,6 @@ class CustomerController(
 
     private val passwordEncoder = BCryptPasswordEncoder()
 
-    // Registration of a new customer
     @PostMapping("/register")
     fun register(@RequestBody customerDTO: CustomerDTO): ResponseEntity<String> {
         return try {
@@ -37,7 +36,6 @@ class CustomerController(
         }
     }
 
-    // Customer authentication
     @PostMapping("/authenticate")
     fun authenticate(@RequestBody authRequest: AuthRequest): ResponseEntity<String> {
         val customer = customerRepository.findByPhone(authRequest.phone)

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 class BusService(val busRepository: BusRepository) {
 
     fun createBus(busDTO: BusDTO): BusDTO {
-        // Check if a bus with the same bus number already exists
+
         val existingBus = busRepository.findByBusNumber(busDTO.busNumber)
         if (existingBus.isPresent) {
             throw IllegalArgumentException("Bus with the number ${busDTO.busNumber} already exists.")
@@ -57,7 +57,6 @@ class BusService(val busRepository: BusRepository) {
         )
     }
 
-
     fun getAllBuses(): List<BusDTO> {
         return busRepository.findAll()
             .map {
@@ -78,7 +77,6 @@ class BusService(val busRepository: BusRepository) {
         val existingBus = busRepository.findByBusNumber(busNumber)
             .orElseThrow { BusNotFoundException("No bus found for the given busNumber: $busNumber") }
 
-        // Update only the non-null fields from UpdateBusDTO
         updateBusDTO.busName?.let { existingBus.busName = it }
         updateBusDTO.travelCompany?.let { existingBus.travelCompany = it }
         updateBusDTO.capacity?.let { existingBus.capacity = it }
